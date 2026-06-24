@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AEGIS Training Catalog - Internal</title>
+<style>
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f3f2f1; color: #323130; line-height: 1.5; }
+.sp-app-bar { background: #0D1520; height: 48px; display: flex; align-items: center; padding: 0 20px; gap: 16px; position: sticky; top: 0; z-index: 100; }
+.sp-waffle { width: 20px; height: 20px; display: grid; grid-template-columns: repeat(3,5px); grid-template-rows: repeat(3,5px); gap: 2px; }
+.sp-waffle span { background: #8899AA; border-radius: 1px; }
+.sp-app-bar-title { font-size: 14px; color: #F0F0F0; font-weight: 600; }
+.sp-app-bar-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+.sp-app-bar-right span { font-size: 12px; color: #8899AA; }
+.sp-avatar { width: 32px; height: 32px; border-radius: 50%; background: #4A6FA5; display: flex; align-items: center; justify-content: center; font-size: 12px; color: white; font-weight: 600; }
+.sp-site-header { background: #1A2744; padding: 12px 24px; display: flex; align-items: center; gap: 14px; border-bottom: 3px solid #D4A537; }
+.sp-site-logo { width: 36px; height: 36px; background: #4A6FA5; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px; color: #F0F0F0; }
+.sp-site-name { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; color: #F0F0F0; text-transform: uppercase; letter-spacing: 0.08em; }
+.sp-site-subtitle { font-size: 11px; color: #8899AA; }
+.sp-nav { background: #1A2744; padding: 0 24px; display: flex; gap: 0; border-bottom: 1px solid #2E3D52; }
+.sp-nav a { color: #8899AA; text-decoration: none; font-size: 13px; padding: 10px 16px; border-bottom: 2px solid transparent; }
+.sp-nav a:hover { color: #F0F0F0; }
+.sp-nav a.active { color: #D4A537; border-bottom-color: #D4A537; font-weight: 600; }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; }
+.tag-core { background: #4A6FA518; color: #4A6FA5; }
+.tag-elective { background: #0D839018; color: #0D8390; }
+.tag-mandatory { background: #D4A53718; color: #a07820; }
+.tag-new { background: #86BC2518; color: #5a8a10; }
+
+.sp-banner { width: 100%; height: 240px; background: #1A2744 url('banner.jpg') center/cover no-repeat; position: relative; }
+.sp-banner-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 24px 32px; background: linear-gradient(transparent, rgba(13,21,32,0.9)); }
+.sp-banner-title { font-family: Arial, sans-serif; font-size: 28px; font-weight: bold; color: #F0F0F0; text-transform: uppercase; letter-spacing: 0.06em; }
+.sp-banner-desc { font-size: 13px; color: #8899AA; margin-top: 4px; }
+.sp-banner-placeholder { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 12px; color: #4A6FA5; font-style: italic; opacity: 0.6; }
+.sp-layout { display: flex; max-width: 1400px; margin: 0 auto; }
+.sp-main { flex: 1; padding: 24px 32px; min-width: 0; }
+.sp-sidebar { width: 300px; flex-shrink: 0; padding: 24px 20px; background: #f9f8f7; border-left: 1px solid #e1dfdd; }
+.sidebar-card { background: white; border: 1px solid #e1dfdd; border-radius: 4px; padding: 16px; margin-bottom: 16px; }
+.sidebar-card-title { font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.08em; color: #D4A537; margin-bottom: 12px; }
+.director-card { text-align: center; }
+.director-photo { width: 100%; aspect-ratio: 1; background: #2E3D52 url('director.jpg') center/cover no-repeat; border-radius: 4px; margin-bottom: 12px; }
+.director-name { font-weight: bold; font-size: 14px; color: #0D1520; }
+.director-title { font-size: 11px; color: #605e5c; margin-bottom: 8px; }
+.director-contact { font-size: 11px; color: #4A6FA5; }
+.sidebar-link { display: block; font-size: 12px; color: #4A6FA5; text-decoration: none; padding: 4px 0; }
+.sidebar-link:hover { text-decoration: underline; }
+.sidebar-info { font-size: 11px; color: #605e5c; line-height: 1.6; }
+.sp-disclaimer { background: #fff4ce; border: 1px solid #f0d060; padding: 10px 16px; font-size: 11px; color: #8a7400; border-radius: 4px; margin-bottom: 16px; }
+.catalog-stats-bar { display: flex; gap: 24px; padding: 12px 0; font-size: 12px; color: #605e5c; border-bottom: 1px solid #e1dfdd; margin-bottom: 16px; }
+.catalog-stats-bar span { color: #D4A537; font-weight: 600; }
+.section-bar { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; color: #0D1520; padding: 14px 0 8px; margin-top: 16px; border-bottom: 2px solid #D4A537; }
+.course-row { display: flex; align-items: center; justify-content: space-between; background: white; border: 1px solid #e1dfdd; border-radius: 4px; padding: 12px 16px; margin-bottom: 6px; text-decoration: none; color: inherit; transition: box-shadow 0.15s; }
+.course-row:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-color: #4A6FA5; }
+.course-row-left { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
+.course-id-badge { font-family: Consolas, 'Courier New', monospace; font-size: 10px; color: #605e5c; background: #f3f2f1; padding: 2px 8px; border-radius: 3px; }
+.course-row-title { font-size: 14px; font-weight: 600; color: #323130; }
+.course-row-meta { display: flex; gap: 12px; align-items: center; flex-shrink: 0; }
+.course-row-meta span { font-size: 11px; color: #605e5c; white-space: nowrap; }
+.btn-details { color: #4A6FA5; font-weight: 600; font-size: 11px; }
+.footer { background: #131E30; border-top: 1px solid #2E3D52; padding: 20px 40px; font-size: 11px; color: #6B7C93; text-align: center; }
+</style></head><body>
+
+<div class="sp-app-bar">
+    <div class="sp-waffle"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <span class="sp-app-bar-title">AEGIS</span>
+    <div class="sp-app-bar-right"><span>Training Division</span><div class="sp-avatar">YO</div></div>
+</div>
+<div class="sp-site-header">
+    <div class="sp-site-logo">A</div>
+    <div><div class="sp-site-name">AEGIS Intranet</div><div class="sp-site-subtitle">Academy for Emergency Guardian Instruction &amp; Safeguarding</div></div>
+</div>
+
+<div class="sp-nav"><a href="#">Home</a><a href="#">News</a><a href="#" class="active">Training</a><a href="#">Resources</a><a href="#">Divisions</a><a href="#">Contact</a></div>
+<div class="sp-banner"><div class="sp-banner-placeholder">[Add banner.jpg to this folder]</div><div class="sp-banner-overlay"><div class="sp-banner-title">Training Course Catalog</div><div class="sp-banner-desc">Complete listing of all approved training programs | Sorted by delivery format and duration</div></div></div>
+<div class="sp-layout">
+<div class="sp-main">
+<div class="sp-disclaimer">For enrollment requests, complete Form TD-7 and submit to your division training coordinator. Allow 5-7 business days for processing.</div>
+<div class="catalog-stats-bar"><div>Total courses: <span>19</span></div><div>Mandatory: <span>4</span></div><div>Catalog version: <span>4.2</span></div></div>
+<div class="section-bar">E-learning</div>
+<a href="courses/ii102.html" class="course-row" data-course-id="II-102" data-category="Compliance and Safety" data-level="Foundational" data-format="E-learning" data-duration="20 min" data-status="Core">
+    <div class="course-row-left"><span class="course-id-badge">II-102</span><span class="course-row-title">Incident Investigation and Reporting</span></div>
+    <div class="course-row-meta"><span>20 min</span><span>Foundational</span><span class="tag tag-core">Core</span><span class="btn-details">View Details &rarr;</span></div>
+</a>
+<a href="courses/ta100.html" class="course-row" data-course-id="TA-100" data-category="Threat and Risk Assessment" data-level="Foundational" data-format="E-learning" data-duration="30 min" data-status="Mandatory">
+    <div class="course-row-left"><span class="course-id-badge">TA-100</span><span class="course-row-title">Basic Threat Assessment</span></div>
+    <div class="course-row-meta"><span>30 min</span><span>Foundational</span><span class="tag tag-mandatory">Mandatory</span><span class="btn-details">View Details &rarr;</span></div>
+</a>
+<a href="courses/sc100.html" class="course-row" data-course-id="SC-100" data-category="Compliance and Safety" data-level="Foundational" data-format="E-learning" data-duration="30 min" data-status="Mandatory">
+    <div class="course-row-left"><span class="course-id-badge">SC-100</span><span class="course-row-title">Safety Compliance Protocols</span></div>
+    <div class="course-row-meta"><span>30 min</span><span>Foundational</span><span class="tag tag-mandatory">Mandatory</span><span class="btn-details">View Details &rarr;</span></div>
+</a>
+<a href="courses/er101.html" class="course-row" data-course-id="ER-101" data-category="Compliance and Safety" data-level="Foundational" data-format="E-learning" data-duration="45 min" data-status="Mandatory">
+    <div class="course-row-left"><span class="course-id-badge">ER-101</span><span class="course-row-title">Ethics and Responsible Use of Powers</span></div>
+    <div class="course-row-meta"><span>45 min</span><span>Foundational</span><span class="tag tag-mandatory">Mandatory</span><span class="btn-details">View Details &rarr;</span></div>
+</a>
+<div class="section-bar">Self-paced</div>
+<a href="courses/fp101.html" class="course-row" data-course-id="FP-101" data-category="Field Operations" data-level="Foundational" data-format="Self-paced" data-duration="45 min" data-status="Mandatory">
+    <div class="course-row-left"><span class="course-id-badge">FP-101</span><span class="course-row-title">Field Protocol Training</span></div>
+    <div class="course-row-meta"><span>45 min</span><span>Foundational</span><span class="tag tag-mandatory">Mandatory</span><span class="btn-details">View Details &rarr;</span></div>
+</a>
+<div class="section-bar">In-person</div>
+<a href="courses/ic206.html" class="course-row" data-course-id="IC-206" data-category="Leadership and Communication" data-level="Intermediate" data-format="In-person" data-duration="Half day" data-status="Elective">
+    <div class="course-row-left"><span class="course-id-badge">IC-206</span><span class="course-row-title">Interagency Communication Standards</span></div>
+    <div class="course-row-meta"><span>Half day</span><span>Intermediate</span><span class="tag tag-elective">Elective</span><span class="btn-details">View Details &rarr;</span></div>
+</a>
+<a href="courses/mr302.html" class="course-row" data-course-id="MR-302" data-category="Field Operations" data-level="Advanced" data-format="In-person" data-duration="Half day" data-status="Elective">
+    <div class="course-row-left"><span class="course-id-badge">MR-302</span><span class="course-row-title">Media Relations Under Pressure</span></div>
+    <div class="course-row-meta"><span>Half day</span><span>Advanced</span><span class="tag tag-elective">Elective</span><span class="btn-details">View Details &rarr;</span></div>
+</a>
+<a href="courses/ct206.html" class="course-row" data-course-id="CT-206" data-category="Leadership and Communication" data-level="Intermediate" data-format="In-person" data-duration="Half day" data-status="New">
+    <div class="course-row-left"><span class="course-id-badge">CT-206</span><span class="course-row-title">Civilian Trauma Awareness</span></div>
+    <div class="course-row-meta"><span>Half day</span><span>Intermediate</span><span class="tag tag-new">New</span><span class="btn-details">View Details &rarr;</span></div>
+</a>
+<a href="courses/ue201.html" class="course-row" data-course-id="UE-201" data-category="Field Operations" data-level="Intermediate" data-format="In-person" data-duration="Full day" data-status="Core">
+    <div class="course-row-left"><span class="course-id-badge">UE-201</span><span class="course-row-title">Urban Evacuation Protocols</span></div>
+    <div class="course-row-meta"><span>Full day</span><span>Intermediate</span><span class="tag tag-core">Core</span><span class="btn-details">View Details &rarr;</span></div>
+</a>
+<a href="courses/de202.html" class="course-row" data-course-id="DE-202" data-category="Field Operations" data-level="Intermediate" data-format="In-person" data-duration="Full day" data-status="Core">
+    <div class="course-row-left"><span class="course-id-badge">DE-202</span><span class="course-row-title">Civilian De-escalation Techniques</span></div>
+    <div class="course-row-meta"><span>Full day</span><span>Intermediate</span><span class="tag tag-core">Core</span><span class="btn-details">View Details &rarr;</span></div>
+</a>
+<a href="courses/fr203.html" class="course-row" data-course-id="FR-203" data-category="Field Operations" data-level="Intermediate" data-format="In-person" data-duration="Full day" data-status="Core">
+    <div class="course-row-left"><span class="course-id-badge">FR-203</span><span class="course-row-title">Field First Response</span></div>
+    <div class="course-row-meta"><span>Full day</span><span>Intermediate</span><span class="tag tag-core">Core</span><span class="btn-details">View Details &rarr;</span></div>
+</a>
+<a href="courses/cc301.html" class="course-row" data-course-id="CC-301" data-category="Field Operations" data-level="Advanced" data-format="In-person" data-duration="2 days" data-status="Elective">
+    <div class="course-row-left"><span class="course-id-badge">CC-301</span><span class="course-row-title">Crowd Control and Public Order</span></div>
+    <div class="course-row-meta"><span>2 days</span><span>Advanced</span><span class="tag tag-elective">Elective</span><span class="btn-details">View Details &rarr;</span></div>
+</a>
+<a href="courses/er301.html" class="course-row" data-course-id="ER-301" data-category="Threat and Risk Assessment" data-level="Advanced" data-format="In-person" data-duration="2 days" data-status="Elective">
+    <div class="course-row-left"><span class="course-id-badge">ER-301</span><span class="course-row-title">Environmental Risk Analysis</span></div>
+    <div class="course-row-meta"><span>2 days</span><span>Advanced</span><span class="tag tag-elective">Elective</span><span class="btn-details">View Details &rarr;</span></div>
+</a>
+<a href="courses/an204.html" class="course-row" data-course-id="AN-204" data-category="Specialized Skills" data-level="Intermediate" data-format="In-person" data-duration="2 days" data-status="Core">
+    <div class="course-row-left"><span class="course-id-badge">AN-204</span><span class="course-row-title">Aerial Navigation: Adverse Weather</span></div>
+    <div class="course-row-meta"><span>2 days</span><span>Intermediate</span><span class="tag tag-core">Core</span><span class="btn-details">View Details &rarr;</span></div>
+</a>
+<a href="courses/ia303.html" class="course-row" data-course-id="IA-303" data-category="Specialized Skills" data-level="Advanced" data-format="In-person" data-duration="2 days" data-status="Elective">
+    <div class="course-row-left"><span class="course-id-badge">IA-303</span><span class="course-row-title">Interagency Joint Operations</span></div>
+    <div class="course-row-meta"><span>2 days</span><span>Advanced</span><span class="tag tag-elective">Elective</span><span class="btn-details">View Details &rarr;</span></div>
+</a>
+<a href="courses/sn205.html" class="course-row" data-course-id="SN-205" data-category="Specialized Skills" data-level="Intermediate" data-format="In-person" data-duration="3 days" data-status="Elective">
+    <div class="course-row-left"><span class="course-id-badge">SN-205</span><span class="course-row-title">Stealth Navigation and Covert Movement</span></div>
+    <div class="course-row-meta"><span>3 days</span><span>Intermediate</span><span class="tag tag-elective">Elective</span><span class="btn-details">View Details &rarr;</span></div>
+</a>
+<a href="courses/ta300.html" class="course-row" data-course-id="TA-300" data-category="Threat and Risk Assessment" data-level="Advanced" data-format="In-person" data-duration="3 days" data-status="Elective">
+    <div class="course-row-left"><span class="course-id-badge">TA-300</span><span class="course-row-title">Advanced Threat Assessment</span></div>
+    <div class="course-row-meta"><span>3 days</span><span>Advanced</span><span class="tag tag-elective">Elective</span><span class="btn-details">View Details &rarr;</span></div>
+</a>
+<a href="courses/cn304.html" class="course-row" data-course-id="CN-304" data-category="Specialized Skills" data-level="Advanced" data-format="In-person" data-duration="3 days" data-status="Elective">
+    <div class="course-row-left"><span class="course-id-badge">CN-304</span><span class="course-row-title">Crisis Negotiation</span></div>
+    <div class="course-row-meta"><span>3 days</span><span>Advanced</span><span class="tag tag-elective">Elective</span><span class="btn-details">View Details &rarr;</span></div>
+</a>
+<a href="courses/tl305.html" class="course-row" data-course-id="TL-305" data-category="Leadership and Communication" data-level="Advanced" data-format="In-person" data-duration="3 days" data-status="Elective">
+    <div class="course-row-left"><span class="course-id-badge">TL-305</span><span class="course-row-title">Team Leadership in Crisis Environments</span></div>
+    <div class="course-row-meta"><span>3 days</span><span>Advanced</span><span class="tag tag-elective">Elective</span><span class="btn-details">View Details &rarr;</span></div>
+</a>
+
+</div>
+<div class="sp-sidebar">
+<div class="sidebar-card director-card"><div class="sidebar-card-title">Training Division Director</div><div class="director-photo"></div><div class="director-name">Alistair Vance</div><div class="director-title">Director, AEGIS</div><div class="director-contact">a.vance@aegis-hq.internal</div><div class="director-contact">Ext. 0001</div></div>
+<div class="sidebar-card"><div class="sidebar-card-title">Quick Links</div><a class="sidebar-link" href="#">Form TD-7: Enrollment Request</a><a class="sidebar-link" href="#">Form TD-12: Course Feedback</a><a class="sidebar-link" href="#">Training Calendar (Current Quarter)</a><a class="sidebar-link" href="#">Division Coordinator Directory</a><a class="sidebar-link" href="#">Certification Tracker</a><a class="sidebar-link" href="#">CPD Credit Policy</a></div>
+<div class="sidebar-card"><div class="sidebar-card-title">Need Help?</div><p class="sidebar-info">For technical issues with e-learning courses, contact IT Support at <strong>support@aegis-hq.internal</strong> or Ext. 4400.<br><br>For content questions, reach out to the course facilitator listed on the course details page.<br><br>For enrollment or scheduling, contact your division training coordinator.</p></div>
+<div class="sidebar-card"><div class="sidebar-card-title">Announcements</div><p class="sidebar-info"><strong>New course added:</strong> Civilian Trauma Awareness (CT-206) is now available for enrollment.<br><br><strong>Reminder:</strong> All mandatory courses must be completed by end of quarter.<br><br><strong>Maintenance:</strong> E-learning platform will be offline Saturday 3am-6am for updates.</p></div>
+</div></div>
+<div class="footer">AEGIS Training Division | Internal Use Only | Catalog version 4.2 | Questions: training@aegis-hq.internal</div>
+</body></html>
