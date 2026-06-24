@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Urban Evacuation Protocols - AEGIS Training</title>
+<style>
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f3f2f1; color: #323130; line-height: 1.5; }
+.sp-app-bar { background: #0D1520; height: 48px; display: flex; align-items: center; padding: 0 20px; gap: 16px; position: sticky; top: 0; z-index: 100; }
+.sp-waffle { width: 20px; height: 20px; display: grid; grid-template-columns: repeat(3,5px); grid-template-rows: repeat(3,5px); gap: 2px; }
+.sp-waffle span { background: #8899AA; border-radius: 1px; }
+.sp-app-bar-title { font-size: 14px; color: #F0F0F0; font-weight: 600; }
+.sp-app-bar-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+.sp-app-bar-right span { font-size: 12px; color: #8899AA; }
+.sp-avatar { width: 32px; height: 32px; border-radius: 50%; background: #4A6FA5; display: flex; align-items: center; justify-content: center; font-size: 12px; color: white; font-weight: 600; }
+.sp-site-header { background: #1A2744; padding: 12px 24px; display: flex; align-items: center; gap: 14px; border-bottom: 3px solid #D4A537; }
+.sp-site-logo { width: 36px; height: 36px; background: #4A6FA5; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px; color: #F0F0F0; }
+.sp-site-name { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; color: #F0F0F0; text-transform: uppercase; letter-spacing: 0.08em; }
+.sp-site-subtitle { font-size: 11px; color: #8899AA; }
+.sp-nav { background: #1A2744; padding: 0 24px; display: flex; gap: 0; border-bottom: 1px solid #2E3D52; }
+.sp-nav a { color: #8899AA; text-decoration: none; font-size: 13px; padding: 10px 16px; border-bottom: 2px solid transparent; }
+.sp-nav a:hover { color: #F0F0F0; }
+.sp-nav a.active { color: #D4A537; border-bottom-color: #D4A537; font-weight: 600; }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; }
+.tag-core { background: #4A6FA518; color: #4A6FA5; }
+.tag-elective { background: #0D839018; color: #0D8390; }
+.tag-mandatory { background: #D4A53718; color: #a07820; }
+.tag-new { background: #86BC2518; color: #5a8a10; }
+
+.breadcrumb { padding: 10px 24px; font-size: 12px; color: #605e5c; background: #f9f8f7; border-bottom: 1px solid #e1dfdd; }
+.breadcrumb a { color: #4A6FA5; text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+.course-page { max-width: 900px; margin: 0 auto; padding: 24px 32px 60px; }
+.course-hero-img { width: 100%; aspect-ratio: 1 / 1; background: #e1dfdd; border-radius: 8px; margin-bottom: 24px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.course-hero-img img { width: 100%; height: 100%; object-fit: cover; }
+.course-hero-img .img-placeholder { font-size: 12px; color: #a19f9d; font-style: italic; text-align: center; padding: 20px; }
+.course-page-title { font-family: Arial, sans-serif; font-size: 24px; font-weight: bold; color: #0D1520; margin-bottom: 4px; }
+.course-page-subtitle { font-family: Consolas, 'Courier New', monospace; font-size: 12px; color: #605e5c; margin-bottom: 20px; }
+.section-title { font-family: Arial, sans-serif; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.1em; color: #D4A537; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid #e1dfdd; margin-top: 24px; }
+.detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.detail-item { }
+.detail-label { font-size: 11px; color: #a19f9d; display: block; }
+.detail-value { font-size: 13px; color: #323130; }
+.facilitator-card { display: flex; gap: 16px; margin-top: 8px; }
+.facilitator-photo { width: 72px; height: 72px; border-radius: 50%; background: #e1dfdd; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 22px; color: #4A6FA5; font-weight: bold; }
+.facilitator-info h4 { font-size: 14px; color: #323130; margin-bottom: 2px; }
+.facilitator-info .fac-title { font-size: 11px; color: #D4A537; margin-bottom: 6px; }
+.facilitator-info p { font-size: 12px; color: #605e5c; line-height: 1.6; }
+.course-description { font-size: 14px; color: #323130; line-height: 1.7; margin-top: 8px; }
+.back-link { display: inline-block; margin-top: 24px; font-size: 13px; color: #4A6FA5; text-decoration: none; }
+.back-link:hover { text-decoration: underline; }
+.footer { background: #131E30; border-top: 1px solid #2E3D52; padding: 20px 40px; font-size: 11px; color: #6B7C93; text-align: center; }
+</style></head><body>
+
+<div class="sp-app-bar">
+    <div class="sp-waffle"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <span class="sp-app-bar-title">AEGIS</span>
+    <div class="sp-app-bar-right"><span>Training Division</span><div class="sp-avatar">YO</div></div>
+</div>
+<div class="sp-site-header">
+    <div class="sp-site-logo">A</div>
+    <div><div class="sp-site-name">AEGIS Intranet</div><div class="sp-site-subtitle">Academy for Emergency Guardian Instruction &amp; Safeguarding</div></div>
+</div>
+
+<div class="sp-nav"><a href="../index.html">Home</a><a href="#">News</a><a href="../index.html" class="active">Training</a><a href="#">Resources</a><a href="#">Divisions</a><a href="#">Contact</a></div>
+<div class="breadcrumb"><a href="../index.html">Training Catalog</a> / Urban Evacuation Protocols</div>
+<div class="course-page">
+<div class="course-hero-img"><img src="pic3.jpeg" onerror="this.parentElement.innerHTML='<div class=img-placeholder>[Course image: pic3.jpeg]<br>Add pic3.jpeg to the courses folder</div>'" alt="Urban Evacuation Protocols"></div>
+<div class="course-page-title">Urban Evacuation Protocols</div>
+<div class="course-page-subtitle">UE-201 | Field Operations | Intermediate</div>
+<div class="section-title">Course Details</div>
+<div class="detail-grid">
+<div class="detail-item"><span class="detail-label">Format</span><span class="detail-value">In-person</span></div>
+<div class="detail-item"><span class="detail-label">Duration</span><span class="detail-value">Full day</span></div>
+<div class="detail-item"><span class="detail-label">Level</span><span class="detail-value">Intermediate</span></div>
+<div class="detail-item"><span class="detail-label">Status</span><span class="detail-value"><span class="tag tag-core">Core</span></span></div>
+
+</div>
+<div class="section-title">Lead Facilitator</div>
+<div class="facilitator-card">
+<div class="facilitator-photo">DH</div>
+<div class="facilitator-info"><h4>Commander Diane Hale</h4><div class="fac-title">Evacuation Operations Lead</div><p>Commander Hale has directed evacuation operations in 23 countries over a 17-year career. She pioneered the grid-based evacuation methodology now standard across AEGIS and three partner agencies.</p></div>
+</div>
+<div class="section-title">Course Description</div>
+<div class="course-description">Hands-on training in evacuation grid management, civilian flow control, and multi-story building procedures. Includes a live simulation exercise.</div>
+<a href="../index.html" class="back-link">&larr; Back to catalog</a>
+</div>
+<div class="footer">AEGIS Training Division | Internal Use Only | Catalog version 4.2</div>
+</body></html>
